@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hatsune Miku Magical Mirai Ticketing Center</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+	<style>
+		body {
+			background-image: url('https://i1.sndcdn.com/artworks-000378671175-hjiki1-t1080x1080.jpg');
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			font-family: 'Orbitron', sans-serif;
+			color: #00eaff;
+			text-shadow: 2px 2px 5px rgba(0, 255, 255, 0.7);
+		}
+		.container {
+			margin-top: 50px;
+			max-width: 500px;
+			background: rgba(0, 0, 0, 0.8);
+			padding: 20px;
+			border-radius: 10px;
+			border: 2px solid #00eaff;
+			box-shadow: 0 0 15px #00eaff;
+		}
+		button {
+			margin-top: 10px;
+			background: linear-gradient(90deg, #00eaff, #0088cc);
+			border: none;
+			color: white;
+			padding: 10px 20px;
+			border-radius: 5px;
+			box-shadow: 0 0 10px #00eaff;
+			transition: all 0.3s;
+		}
+		button:hover {
+			background: #0088cc;
+			box-shadow: 0 0 15px #00eaff;
+		}
+	</style>
+</head>
+<body>
+	<audio autoplay loop>
+		<source src="https://hatsunemiku.bandcamp.com/track/melt" type="audio/mpeg">
+	</audio>
+	<div class="container text-center">
+		<h1 class="mb-4"> 🎤 Hatsune Miku Ticketing Center 💙 </h1>
+		<p>Book your tickets now! Don't miss the concert! </p>
+		<div class="mb-3">
+			<input type="text" id="username" class="form-control" placeholder="Your Name">
+		</div>
+		<div class="mb-3">
+			<input type="email" id="email" class="form-control" placeholder="Your Email">
+		</div>
+		<p><strong>Choose Your Ticket Type:</strong></p>
+		<select id="ticketType" class="form-control mb-3">
+			<option value="">-- Select Ticket --</option>
+			<option value="VIP"> VIP - $100</option>
+			<option value="Regular"> Regular - $50</option>
+			<option value="Student"> Student - $25</option>
+		</select>
+		<p><strong>Choose Your Age Category:</strong></p>
+		<select id="ageCategory" class="form-control mb-3">
+			<option value="">-- Select Age Category --</option>
+			<option value="Adult"> Adult - $20</option>
+			<option value="Kid"> Kid - $10</option>
+		</select>
+		<p><strong>Seat Category:</strong></p>
+		<select id="seatCategory" class="form-control mb-3">
+			<option value="">-- Select Seat Category --</option>
+			<option value="Front"> Front - $20</option>
+			<option value="Middle"> Middle - $15</option>
+			<option value="Back"> Back - $10</option>
+		</select>
+		<button class="btn mt-3" onclick="purchaseTicket()"> Confirm Purchase</button>
+		<p id="confirmationMessage" class="mt-3 text-warning"></p>
+	</div>
+	<script>
+		function purchaseTicket() {
+			let username = document.getElementById("username").value.trim();
+			let email = document.getElementById("email").value.trim();
+			let ticketType = document.getElementById("ticketType").value;
+			let ageCategory = document.getElementById("ageCategory").value;
+			let seatCategory = document.getElementById("seatCategory").value;
+
+			if (username === "" || email === "") {
+				alert("Please enter your name and email!");
+				return;
+			}
+			if (ticketType === "") {
+				alert("Please select a ticket type!");
+				return;
+			}
+			if (ageCategory === "") {
+				alert("Please select an age category!");
+				return;
+			}
+			if (seatCategory === "") {
+				alert("Please select a seat category!");
+				return;
+			}
+			let ticketPrices = { "VIP": 100, "Regular": 50, "Student": 25 };
+			let seatPrices = { "Front": 20, "Middle": 15, "Back": 10 };
+			let agePrices = { "Adult": 20, "Kid": 10 };
+			let totalPrice = ticketPrices[ticketType] + seatPrices[seatCategory] + agePrices[ageCategory];
+
+			document.getElementById("confirmationMessage").innerHTML = `🎶 Thank you, <strong>${username}</strong>!<br>
+			You booked a <strong>${ticketType}</strong> ticket as an <strong>${ageCategory}</strong>.<br>
+			Seat Category: <strong>${seatCategory}</strong><br>
+			Total price: <strong>$${totalPrice.toFixed(2)}</strong>.<br>
+			Confirmation email sent to: <strong>${email}</strong>.`;
+		}
+	</script>
+	<footer class="text-center mt-5 p-3 bg-dark text-light">
+		<p>&copy; 2025 Hatsune Miku Magical Mirai Concert Tickets. Brought to you by Zaldivar James Guile from 9-Emerald </p>
+	</footer>
+</body>
+</html>
